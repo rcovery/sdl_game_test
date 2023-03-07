@@ -7,7 +7,8 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
 int init_window(void) {
-  if (!SDL_Init(SDL_INIT_VIDEO)) {
+  if (SDL_Init(SDL_INIT_VIDEO) == 1) {
+    printf("Error initializing SDL!");
     return EXIT_FAILURE;
   }
 
@@ -21,14 +22,20 @@ int init_window(void) {
   );
 
   if (!window) {
+    printf("Error initializing window!");
     return EXIT_FAILURE;
   }
 
   renderer = SDL_CreateRenderer(window, -1, 0);
 
   if (!renderer) {
+    printf("Error creating renderer!");
     return EXIT_FAILURE;
   }
+
+  SDL_Delay(5000);
+
+  SDL_Quit();
 
   return EXIT_SUCCESS;
 }
